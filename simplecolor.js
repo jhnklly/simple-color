@@ -65,7 +65,6 @@ function updateSliders(d3color) {
     gradientColor += `, hsla(${i}, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
   }
   gradientColor += ") ";
-  console.log(gradientColor);
   d3.select('#hue').style('background', gradientColor);
 
 }

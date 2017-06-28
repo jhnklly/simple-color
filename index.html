@@ -2,22 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>simplecolor input range slider</title>
+  <title>simplecolor</title>
+  <meta name='description' content='Statistical methods in readable JavaScript for browsers, servers, and people.'>
+
   <link rel='stylesheet' href="simplecolor.css">
+
   <style>
 
-  body, * { font-family: sans-serif; }
+    body, * {
+      font-family: sans-serif;
+      font-size: 10px;
+    }
 
-    .wrapper * {
-      // border: 1px dotted orange;
+    .wrapper {
+      border: 1px solid #ddd;
+      padding: 3px;
       width: 200px;
       font-family: sans-serif;
       font-size: 10px;
     }
 
   </style>
+
 </head>
 <body>
+
+  <div class="intro">
+    <ul>
+      <li>No jquery</li>
+      <li>No svg</li>
+      <li>Compact UI</li>
+      <li>Fluid width</li>
+      <li>HSL</li>
+      <li>Keyboard control</li>
+      <li>HTML range input controls</li>
+    </ul>
+  </div>
 
   <div class="wrapper">
   <div class="colorpicker">
@@ -42,6 +62,10 @@
     <div class="flex-row">
       <div id="old-color" class="swatch"></div>
       <div id="new-color" class="swatch"></div>
+      <div class="swatch">
+        <input id="new-hex" class="" type="text" placeholder="#22AAFF" />
+      </div>
+
     </div>
 
   </div>
