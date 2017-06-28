@@ -36,6 +36,7 @@
       <li>HSL</li>
       <li>Keyboard control</li>
       <li>HTML range input controls</li>
+      <li>Optionally quantized values</li>
     </ul>
   </div>
 
@@ -44,15 +45,15 @@
 
     <!-- <div id="slider1"></div> -->
     <div class="flex-row">
-      <input id="hue" type="range" class="slider grow"  min="0" max="360" value="200" /><input id="hue-number" class="number" type="text" value="200"/><div class="suffix">°H</div>
+      <input step="5" id="hue" type="range" class="slider grow"  min="0" max="360" value="200" /><input id="hue-number" class="number" type="text" value="200"/><div class="suffix">°H</div>
     </div>
 
     <div class="flex-row">
-      <input id="saturation" type="range" class="slider grow" value="75" /><input id="saturation-number" class="number" type="text" value="75"/><div class="suffix">%S</div>
+      <input step="5" id="saturation" type="range" class="slider grow" value="75" /><input id="saturation-number" class="number" type="text" value="75"/><div class="suffix">%S</div>
     </div>
 
     <div class="flex-row">
-      <input id="lightness" type="range" class="slider" value="50" /><input id="lightness-number" class="number" type="text" value="50"/><span class="suffix">%L</span>
+      <input step="5" id="lightness" type="range" class="slider" value="50" /><input id="lightness-number" class="number" type="text" value="50"/><span class="suffix">%L</span>
     </div>
 <!--
     <div class="flex-row">
@@ -62,7 +63,7 @@
     <div class="flex-row">
       <div id="old-color" class="swatch"></div>
       <div id="new-color" class="swatch"></div>
-      <div class="swatch">
+      <div class="">
         <input id="new-hex" class="" type="text" placeholder="#22AAFF" />
       </div>
 

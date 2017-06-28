@@ -99,4 +99,5 @@ input[type=range]::-webkit-slider-runnable-track {
 
 #new-hex {
   width: 5em;
+  font-family: monospace;
 }
