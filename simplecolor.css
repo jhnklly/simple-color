@@ -1,0 +1,97 @@
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 90%;
+  height: 16px;
+  //margin: -1.05px 0;
+  margin: 0px auto;
+  display: flex;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  cursor: pointer;
+  background: #f4f4f4;
+  // border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+}
+
+input[type=range]:focus ,
+input[type=range]:focus::-webkit-slider-runnable-track {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  border: 1px solid #aaa;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #eee;
+  -webkit-appearance: none;
+}
+
+input.number {
+  width: 2em;
+}
+/*
+flex: 1;
+is shorthand for flex-grow, flex-shrink, and flex-basis. Only the first parameter is required and the default is 0 1 auto.
+The number value specifies the proportion that this flex item should grow to take up available space in the container. The default is 0 so this won’t take up extra space. If each flex item has this set to 1 then they will all be the same height as the tallest. If one is set to 3 and the others are set to 1 then that flex item will be three times taller. Of course flex-grow will affect the width rather than height when the main axis is vertical.
+*/
+.flex-grid {
+  //display: inline-flex;
+  display: flex;
+  //flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+.flex-row .grow {
+  flex-grow: 1;
+}
+.flex-row .shrink {
+  flex-shrink: 10;
+}
+.flex-row .slider {
+  flex-grow: 10;
+}
+.flex-row .number {
+  width: 2em;
+  padding: 0;
+}
+.flex-row .suffix {
+  width: 2em;
+  padding: 0;
+  text-align: right;
+}
+input {
+  line-height: 9px;
+  // margin-left: auto;
+  text-align: center;
+}
+.swatch {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #eee;
+}
+
+/*
+https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+*/
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  // box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: transparent;
+  // border-radius: 1.3px;
+  // border: 0.2px solid #010101;
+}
