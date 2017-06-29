@@ -28,7 +28,6 @@
 
   d3.select('#lightness').on('input',function(d){
     newColor.l = this.value/100;
-    console.log(newColor);
     d3.select('#new-color').style('background', newColor);
     d3.select('#lightness-number').attr('value',this.value);
     updateSliders(newColor);
@@ -65,7 +64,6 @@ function updateSliders(d3color) {
     gradientColor += `, hsla(${i}, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
   }
   gradientColor += ") ";
-  console.log(gradientColor);
   d3.select('#hue').style('background', gradientColor);
 
 }
