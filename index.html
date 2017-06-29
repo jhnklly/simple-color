@@ -28,6 +28,10 @@
 </head>
 <body>
 
+    <div class="wrapper">
+        <div id="sc-instance"></div>
+    </div>
+
   <div class="intro">
     <ul>
       <li>No jquery</li>
@@ -73,8 +77,15 @@
   </div>
   </div>
 
+  <div id="foo-target"></div>
+
   <script src="http://d3js.org/d3.v4.min.js"></script>
   <script src="simplecolor.js"></script>
+
+    <script>
+        simplecolor("#sc-instance", "#foo-target");
+
+    </script>
 
 </body>
 </html>

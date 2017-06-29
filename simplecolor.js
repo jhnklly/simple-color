@@ -1,81 +1,161 @@
-const TOLERANCE = 5;
-//var newColor = d3.color("hsla(120, 50%, 20%, 0.4)");
-var newColor = d3.hsl("#00AAFF");
-updateSliders(newColor);
+/*
+Usage:
+var simpleColorPicker = sc(picker, target);
+d3.select("#foo").call(simpleColorPicker);
+*/
+var sc = window.sc || {};
+window.sc = sc;
 
-d3.select('#old-color').style('background', newColor);
-d3.select('#new-color').style('background', '#0af');
+// sc.simplecolor =
 
-d3.selectAll('.colorpicker .slider').on('input',function(d){
-  console.log(this.value);
-});
+function simplecolor(pickerSelector, targetSelector) {
+    var picker = d3.select(pickerSelector),
+        target = d3.select(targetSelector),
+        TOLERANCE = 5, // percent or degrees
+        oldColorHex = target.style('background-color'),
+        newColorObj
+        ;
 
-d3.select('#hue').on('input',function(d){
-  if ( Math.abs(newColor.h - this.value) >= TOLERANCE ) {
-    newColor.h = this.value;
-    // console.log(newColor);
-    d3.select('#new-color').style('background', newColor);
-    d3.select('#hue-number').attr('value',this.value);
+    var newColor = d3.hsl("#00AAFF");
     updateSliders(newColor);
-  }
-});
 
-d3.select('#saturation').on('input',function(d){
-  if ( Math.abs(newColor.s - this.value/100) >= TOLERANCE/100 ) {
-    newColor.s = this.value/100;
-    d3.select('#new-color').style('background', newColor);
-    d3.select('#saturation-number').attr('value',this.value);
-    updateSliders(newColor);
-  }
-});
+    if (!d3.hsl(oldColorHex).h) oldColorHex = "#cccccc";
+    newColorObj = d3.hsl(oldColorHex);
+    if (!newColorObj.h) newColorObj.h = 0;
 
-d3.select('#lightness').on('input',function(d){
-  if ( Math.abs(newColor.l - this.value/100) >= TOLERANCE/100 ) {
-    newColor.l = this.value/100;
-    d3.select('#new-color').style('background', newColor);
-    d3.select('#lightness-number').attr('value',this.value);
-    updateSliders(newColor);
-  }
-});
+    console.log(picker);
+    console.log(target);
+    console.log(oldColorHex);
+    console.log(newColorObj);
 
 
-d3.select('#hue')
-  .style('background', "linear-gradient(to right, hsla(0, 100%, 50%, 1),hsla(10, 100%, 50%, 1),hsla(20, 100%, 50%, 1),hsla(30, 100%, 50%, 1),hsla(40, 100%, 50%, 1),hsla(50, 100%, 50%, 1),hsla(60, 100%, 50%, 1),hsla(70, 100%, 50%, 1),hsla(80, 100%, 50%, 1),hsla(90, 100%, 50%, 1),hsla(100, 100%, 50%, 1),hsla(110, 100%, 50%, 1),hsla(120, 100%, 50%, 1),hsla(130, 100%, 50%, 1),hsla(140, 100%, 50%, 1),hsla(150, 100%, 50%, 1),hsla(160, 100%, 50%, 1),hsla(170, 100%, 50%, 1),hsla(180, 100%, 50%, 1),hsla(190, 100%, 50%, 1),hsla(200, 100%, 50%, 1),hsla(210, 100%, 50%, 1),hsla(220, 100%, 50%, 1),hsla(230, 100%, 50%, 1),hsla(240, 100%, 50%, 1),hsla(250, 100%, 50%, 1),hsla(260, 100%, 50%, 1),hsla(270, 100%, 50%, 1),hsla(280, 100%, 50%, 1),hsla(290, 100%, 50%, 1),hsla(300, 100%, 50%, 1),hsla(310, 100%, 50%, 1),hsla(320, 100%, 50%, 1),hsla(330, 100%, 50%, 1),hsla(340, 100%, 50%, 1),hsla(350, 100%, 50%, 1),hsla(360, 100%, 50%, 1))")
-  ;
+    // Make the colorpicker container, sliders, inputs, swatches, hex display
+    // Append it to the pickerSelector
+    var sccp = picker.append('div')
+        .attr('class', 'sc-colorpicker')
+        ;
+
+    var scSliders = ["hue", "saturation", "lightness", "alpha"];
+    var suffixes = {
+        "hue": "°H",
+        "saturation": "%S",
+        "lightness": "%L",
+        "alpha": "α"
+    };
+
+    var scRows = sccp.selectAll('div')
+        .data(scSliders)
+        .enter()
+        .append('div')
+            .attr('class','sc-flex-row')
+        ;
+
+    var scSliders = scRows
+        .append('input')
+            .attr('class', 'sc-slider sc-grow')
+            .attr('id', (d) => d)
+            .attr('type', 'range')
+            .attr('value', 50)
+            .attr('step', TOLERANCE)
+        ;
+
+    scRows
+        .append('input')
+            .attr('class', 'sc-number')
+            .attr('id', (d) => {
+                return d + "-number";
+            })
+            .attr('type', 'text')
+            .attr('value', 50)
+        ;
+
+    scRows
+        .append('span')
+            .attr('class', 'sc-suffix')
+            .text((d) => {
+                return suffixes[d];
+            })
+        ;
 
 
-function updateSliders(d3color) {
-  // Update hex code
-  d3.select('#new-hex').attr('value', rgb2hex(d3color.toString()) );
+    // Define the colorChange function
+    function updateSliders(d3color) {
+        // console.log(d3color);
+        // Update hex code && target
+        d3.select('#new-hex').attr('value', rgb2hex(d3color.toString()) );
+        target.style('background', '#00aaff');
+
+        // Ramp hue from 0 to 100
+        fromColor = `hsla(0, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
+        midColor = `hsla(90, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
+        toColor = `hsla(180, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
+        d3.select('#hue').style('background', makeGradient(d3color.toString()));
+
+        // Ramp saturation from 0 to 100
+        fromColor = `hsla(${d3color.h}, 0%, ${100*d3color.l}%, 1)`;
+        // midColor = `hsla(${d3color.h}, ${100*d3color.s}%, 50%, 1)`;
+        toColor = `hsla(${d3color.h}, 100%, ${100*d3color.l}%, 1)`;
+        gradientColor = `linear-gradient(to right, ${fromColor}, ${toColor})`;
+        d3.select('#saturation').style('background', gradientColor);
+
+        // Ramp lightness from 0 to 100
+        fromColor = `hsla(${d3color.h}, ${100*d3color.s}%, 0%, 1)`;
+        midColor = `hsla(${d3color.h}, ${100*d3color.s}%, 50%, 1)`;
+        toColor = `hsla(${d3color.h}, ${100*d3color.s}%, 100%, 1)`;
+        gradientColor = `linear-gradient(to right, ${fromColor}, ${midColor}, ${toColor})`;
+        d3.select('#lightness').style('background', gradientColor);
+
+    }
+
+    // Set the on change handlers
+
+    d3.select('#hue').on('input',function(d){
+        if ( Math.abs(newColor.h - this.value) >= TOLERANCE ) {
+            newColor.h = this.value;
+            // console.log(newColor);
+            d3.select('#new-color').style('background', newColor);
+            d3.select('#hue-number').attr('value',this.value);
+            updateSliders(newColor);
+        }
+    });
+
+    d3.select('#saturation').on('input',function(d){
+        if ( Math.abs(newColor.s - this.value/100) >= TOLERANCE/100 ) {
+            newColor.s = this.value/100;
+            d3.select('#new-color').style('background', newColor);
+            d3.select('#saturation-number').attr('value',this.value);
+            updateSliders(newColor);
+        }
+    });
+
+    d3.select('#lightness').on('input',function(d){
+        if ( Math.abs(newColor.l - this.value/100) >= TOLERANCE/100 ) {
+            newColor.l = this.value/100;
+            d3.select('#new-color').style('background', newColor);
+            d3.select('#lightness-number').attr('value',this.value);
+            updateSliders(newColor);
+        }
+    });
 
 
-  // Ramp saturation from 0 to 100
-  var fromColor, toColor, gradientColor;
-  var satFrom = `hsla(${d3color.h}, 0%, ${100*d3color.l}%, 1)`;
-  var satTo = `hsla(${d3color.h}, 100%, ${100*d3color.l}%, 1)`;
-  var satGrad = `linear-gradient(to right, ${satFrom}, ${satTo})`;
-  d3.select('#saturation').style('background', satGrad);
+    function makeGradient(hex) {
+        var colorArr = [];
+        var d3c = d3.hcl(hex);
+        var hcl;
+        // Increment through the d3.hcl spectrum
+        // Converting each to HSL for CSS
+        for (var i = 0; i <= 360; i = i + 10) {
+            d3c.h = i;
+            colorArr.push(d3c.toString());
+        }
+        var ret = `linear-gradient(to right, ${colorArr.join(",")} )`;
+        console.log(ret);
+        return ret;
+    }
 
-  // Ramp lightness from 0 to 100
-  fromColor = `hsla(${d3color.h}, ${100*d3color.s}%, 0%, 1)`;
-  midColor = `hsla(${d3color.h}, ${100*d3color.s}%, 50%, 1)`;
-  toColor = `hsla(${d3color.h}, ${100*d3color.s}%, 100%, 1)`;
-  gradientColor = `linear-gradient(to right, ${fromColor}, ${midColor}, ${toColor})`;
-  d3.select('#lightness').style('background', gradientColor);
-
-  // Ramp hue from 0 to 100
-  fromColor = `hsla(0, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
-  midColor = `hsla(90, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
-  toColor = `hsla(180, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
-  // gradientColor = `linear-gradient(to right, ${fromColor}, ${midColor}, ${toColor})`;
-  gradientColor = "linear-gradient(to right ";
-  for (var i = 0; i <= 360; i = i + 10) {
-    gradientColor += `, hsla(${i}, ${100*d3color.s}%, ${100*d3color.l}%, 1)`;
-  }
-  gradientColor += ") ";
-  d3.select('#hue').style('background', gradientColor);
 
 }
+
 
 function rgb2hex(rgb){
   // ignores alpha
@@ -85,3 +165,4 @@ function rgb2hex(rgb){
     ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
     ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
 }
+
