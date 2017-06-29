@@ -17,7 +17,7 @@ function simplecolor(pickerSelector, targetSelector) {
         ;
 
     var newColor = d3.hsl("#00AAFF");
-    newColor.opacity = 0.5; // todo - sync
+    newColor.opacity = 1.0; // todo - sync
 
     if (!d3.hsl(oldColorHex).h) oldColorHex = "#cccccc";
     newColorObj = d3.hsl(oldColorHex);
@@ -66,7 +66,7 @@ function simplecolor(pickerSelector, targetSelector) {
     // Override background for opacity slider
     d3.select('.sc-slider#sc-alpha')
         .attr('max',1)
-        .attr('value',0.5)
+        .attr('value',1.0)
         .attr('step',0.1)
         .classed("checkerboard", true);
         ;
@@ -85,7 +85,7 @@ function simplecolor(pickerSelector, targetSelector) {
         .attr('value',200)
         ;
     d3.select('#sc-alpha-number')
-        .attr('value', 0.5)
+        .attr('value', 1.0)
         ;
 
     scRows
@@ -128,19 +128,19 @@ function simplecolor(pickerSelector, targetSelector) {
             .attr('id','sc-new-rgba')
         ;
 
-    updateSliders(newColor);
+    updateInputs(newColor);
 
     function updateInputs(colorString) {
         d3color = d3.hsl(colorString);
         d3.select('#sc-hue').attr('value', d3color.h);
-        d3.select('#sc-saturation').attr('value', d3color.s);
-        d3.select('#sc-lightness').attr('value', d3color.l);
+        d3.select('#sc-saturation').attr('value', d3color.s * 100);
+        d3.select('#sc-lightness').attr('value', d3color.l * 100);
         d3.select('#sc-alpha').attr('value', d3color.opacity);
         updateSliders(d3color);
 
         d3.select('#sc-hue-number').attr('value', d3color.h);
-        d3.select('#sc-saturation-number').attr('value', d3color.s);
-        d3.select('#sc-lightness-number').attr('value', d3color.l);
+        d3.select('#sc-saturation-number').attr('value', d3color.s * 100);
+        d3.select('#sc-lightness-number').attr('value', d3color.l * 100);
         d3.select('#sc-alpha-number').attr('value', d3color.opacity);
     }
 
