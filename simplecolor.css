@@ -1,4 +1,6 @@
 
+
+
 input[type=range] {
   -webkit-appearance: none;
   width: 90%;
@@ -34,6 +36,7 @@ input[type=range]::-webkit-slider-thumb {
 input.number {
   width: 2em;
 }
+
 /*
 flex: 1;
 is shorthand for flex-grow, flex-shrink, and flex-basis. Only the first parameter is required and the default is 0 1 auto.
@@ -97,7 +100,30 @@ input[type=range]::-webkit-slider-runnable-track {
   // border: 0.2px solid #010101;
 }
 
-#new-hex {
+#sc-new-hex {
   width: 5em;
   font-family: monospace;
 }
+#sc-new-rgba {
+  width: 8em;
+  // font-size: 9px;
+  // font-family: monospace;
+  // letter-spacing: -0.1em;
+  font-stretch: condensed;
+  font-family: "Arial Narrow", sans-serif;
+}
+
+div#sc-slider-container-alpha,
+div.sc-swatch.checkerboard {
+    //position: fixed;
+    //height: 100%;
+    //width: 100%;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    // background-color: #0f0;
+    background-image: linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb),
+    linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb);
+    background-size: 10px 10px;
+    background-position:0 0, 5px 5px
+}
+

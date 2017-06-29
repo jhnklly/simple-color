@@ -45,46 +45,13 @@
     </ul>
   </div>
 
-  <div class="wrapper">
-  <div class="colorpicker">
-
-    <!-- <div id="slider1"></div> -->
-    <div class="flex-row">
-      <input step="5" id="hue" type="range" class="slider grow"  min="0" max="360" value="200" /><input id="hue-number" class="number" type="text" value="200"/><div class="suffix">°H</div>
-    </div>
-
-    <div class="flex-row">
-      <input step="5" id="saturation" type="range" class="slider grow" value="75" /><input id="saturation-number" class="number" type="text" value="75"/><div class="suffix">%S</div>
-    </div>
-
-    <div class="flex-row">
-      <input step="5" id="lightness" type="range" class="slider" value="50" /><input id="lightness-number" class="number" type="text" value="50"/><span class="suffix">%L</span>
-    </div>
-<!--
-    <div class="flex-row">
-      <input id="alpha" type="range" class="slider" /><input id="alpha-number" class="number" type="text" value="50"/><span class="suffix">α</span>
-    </div>
- -->
-    <div class="flex-row">
-      <div id="old-color" class="swatch"></div>
-      <div id="new-color" class="swatch"></div>
-      <div class="">
-        <input id="new-hex" class="" type="text" placeholder="#22AAFF" />
-      </div>
-
-    </div>
-
-  </div>
-  </div>
-
   <div id="foo-target"></div>
 
   <script src="http://d3js.org/d3.v4.min.js"></script>
   <script src="simplecolor.js"></script>
 
     <script>
-        simplecolor("#sc-instance", "#foo-target");
-
+        simplecolor("#sc-instance", ".intro");
     </script>
 
 </body>
