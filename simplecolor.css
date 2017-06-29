@@ -1,4 +1,6 @@
 
+
+
 input[type=range] {
   -webkit-appearance: none;
   width: 90%;
@@ -34,6 +36,7 @@ input[type=range]::-webkit-slider-thumb {
 input.number {
   width: 2em;
 }
+
 /*
 flex: 1;
 is shorthand for flex-grow, flex-shrink, and flex-basis. Only the first parameter is required and the default is 0 1 auto.
@@ -44,24 +47,24 @@ The number value specifies the proportion that this flex item should grow to tak
   display: flex;
   //flex-direction: column;
 }
-.flex-row {
+.sc-flex-row {
   display: flex;
   align-items: center;
 }
-.flex-row .grow {
+.sc-flex-row .sc-grow {
   flex-grow: 1;
 }
-.flex-row .shrink {
+.sc-flex-row .sc-shrink {
   flex-shrink: 10;
 }
-.flex-row .slider {
+.sc-flex-row .sc-slider {
   flex-grow: 10;
 }
-.flex-row .number {
+.sc-flex-row .sc-number {
   width: 2em;
   padding: 0;
 }
-.flex-row .suffix {
+.sc-flex-row .sc-suffix {
   width: 2em;
   padding: 0;
   text-align: right;
@@ -71,7 +74,8 @@ input {
   // margin-left: auto;
   text-align: center;
 }
-.swatch {
+.sc-swatch {
+  min-width: 20px;
   width: 20px;
   height: 20px;
   border: 1px solid #eee;
@@ -94,4 +98,31 @@ input[type=range]::-webkit-slider-runnable-track {
   background: transparent;
   // border-radius: 1.3px;
   // border: 0.2px solid #010101;
+}
+
+#sc-new-hex {
+  width: 5em;
+  font-family: monospace;
+}
+#sc-new-rgba {
+  width: 8em;
+  // font-size: 9px;
+  // font-family: monospace;
+  // letter-spacing: -0.1em;
+  font-stretch: condensed;
+  font-family: "Arial Narrow", sans-serif;
+}
+
+div#sc-slider-container-alpha,
+div.sc-swatch.checkerboard {
+    //position: fixed;
+    //height: 100%;
+    //width: 100%;
+    top: 0; left: 0; right: 0; bottom: 0;
+    margin: 0;
+    // background-color: #0f0;
+    background-image: linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb),
+    linear-gradient(45deg, #bbb 25%, transparent 25%, transparent 75%, #bbb 75%, #bbb);
+    background-size: 10px 10px;
+    background-position:0 0, 5px 5px
 }
